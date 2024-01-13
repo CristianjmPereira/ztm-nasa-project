@@ -9,6 +9,8 @@ jobs:
     env:
       CI: true
       MONGO_URL: mongodb://localhost/nasa-project
+      GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+      GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
     strategy:
       matrix:
         node-version: [20]

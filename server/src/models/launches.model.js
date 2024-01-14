@@ -93,11 +93,12 @@ async function getLastersFlightNumber() {
 }
 
 async function getAllLaunches(skip, limit) {
-  return await launchesDatabase
+  const launches = await launchesDatabase
     .find({}, { _id: 0, __v: 0 })
     .sort({ flightNumber: 1 })
     .skip(skip)
     .limit(limit);
+  return launches;
 }
 
 async function saveLaunch(launch) {
@@ -113,14 +114,6 @@ async function saveLaunch(launch) {
 }
 
 async function addNewLaunch(launch) {
-  const planet = await planetsMongo.findOne({
-    keplerName: launch.destination,
-  });
-
-  if (!planet) {
-    throw new Error("No matching planet was found");
-  }
-
   const newLaunch = {
     ...launch,
     flightNumber: (await getLastersFlightNumber()) + 1,
@@ -153,4 +146,5 @@ module.exports = {
   abortLaunch,
   existsLaunchWithId,
   loadLaunchesData,
+  saveLaunch,
 };

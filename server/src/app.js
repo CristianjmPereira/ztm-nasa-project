@@ -6,10 +6,23 @@ const helmet = require("helmet");
 const cookieSession = require("cookie-session");
 const api = require("./routes/api");
 const { configuredPassport, authRouter } = require("./routes/auth/auth.router");
+const graphqlConfig = require("./routes/graphql/graphql.router");
 
 const app = express();
 
-app.use(helmet());
+// This configuration is required for the Apollo GraphQL Playground to work
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+        "script-src": ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
+      },
+    },
+  })
+);
+
+app.use("/graphql", graphqlConfig);
 
 app.use(
   cookieSession({

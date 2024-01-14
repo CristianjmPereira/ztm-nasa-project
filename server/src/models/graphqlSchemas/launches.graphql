@@ -1,0 +1,31 @@
+scalar DateTime
+
+input LaunchInput {
+  flightNumber: ID!
+  mission: String!
+  rocket: String
+  destination: String
+  launchDate: DateTime
+  upcoming: Boolean
+  success: Boolean
+}
+
+type Query {
+  launches: [Launch]!
+  launchesByDate(from: DateTime!, to: DateTime!): [Launch]!
+  launchesSortedByDate(order: String): [Launch]!
+}
+
+type Mutation {
+  addNewLaunch(launch: LaunchInput): Launch!
+}
+
+type Launch {
+  flightNumber: ID!
+  mission: String!
+  rocket: String
+  destination: String
+  launchDate: DateTime
+  upcoming: Boolean
+  success: Boolean
+}

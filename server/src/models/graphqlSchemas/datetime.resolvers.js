@@ -1,5 +1,4 @@
-const { GraphQLDateTime } = require("graphql-iso-date");
-
+const { DateTimeScalar } = require("graphql-date-scalars");
 module.exports = {
-  DateTime: GraphQLDateTime,
+  DateTime: DateTimeScalar,
 };

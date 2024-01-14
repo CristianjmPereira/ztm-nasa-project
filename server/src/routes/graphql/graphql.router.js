@@ -1,10 +1,14 @@
-const express = require("express");
-const { graphqlHTTP } = require("express-graphql");
+const { ApolloServer } = require("apollo-server-express");
+
 const { schema } = require("../../models/graphql.model");
 
-const graphqlConfig = graphqlHTTP({
-  schema: schema,
-  graphiql: true,
-});
+async function startApolloServer() {
+  const server = new ApolloServer({
+    schema,
+  });
+  await server.start();
+  console.log("Apollo server started");
+  return server;
+}
 
-module.exports = graphqlConfig;
+module.exports = startApolloServer;
